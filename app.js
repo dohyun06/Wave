@@ -7,7 +7,11 @@ class App {
 
         this.waveGroup = new WaveGroup(); /* WaveGroup 클래스 선언 */
 
-        window.addEventListener('resize', this.resize.bind(this), false); /* 화면 크기 재조정 감지 시 resize 실행 */
+        window.addEventListener(
+            'resize',
+            this.resize.bind(this),
+            false
+        ); /* 화면 크기 재조정 감지 시 resize 실행 */
         this.resize(); /* resize 실행 */
 
         requestAnimationFrame(this.animate.bind(this)); /* animate 실행 */
@@ -22,7 +26,10 @@ class App {
         this.canvas.height = this.stageHeight * 2; /* canvas 높이 : 화면 높이 * 2 */
         this.ctx.scale(2, 2); /* canvas 확대 */
 
-        this.waveGroup.resize(this.stageWidth, this.stageHeight); /* WaveGroup에 resize 실행 */
+        this.waveGroup.resize(
+            this.stageWidth,
+            this.stageHeight
+        ); /* WaveGroup에 resize 실행 */
     }
 
     /* 애니메이션 함수 */
@@ -31,7 +38,9 @@ class App {
 
         this.waveGroup.draw(this.ctx); /* WaveGroup에 draw 실행 */
 
-        requestAnimationFrame(this.animate.bind(this)); /* animate 실행 (animate를 계속해서 반복) */
+        requestAnimationFrame(
+            this.animate.bind(this)
+        ); /* animate 실행 (animate를 계속해서 반복) */
     }
 }
 
@@ -41,14 +50,18 @@ class WaveGroup {
         this.totalWaves = 3; /* 파도 개수 3개 */
         this.totalPoints = 6; /* 움직일 기준 점 6개 */
 
-        this.color = ['rgba(255,0,0,0.4)', 'rgba(255,255,0,0.4)', 'rgba(0,255,255,0.4)']; /* 색 설정 */
-        /* this.color = ['rgba(0,199,235,0.4)', 'rgba(0,146,199,0.4)', 'rgba(0,87,158,0.4)']; */
+        /* this.color = ['rgba(255,0,0,0.4)', 'rgba(255,255,0,0.4)', 'rgba(0,255,255,0.4)']; */ /* 색 설정 */
+        this.color = ['rgba(0,199,235,0.4)', 'rgba(0,146,199,0.4)', 'rgba(0,87,158,0.4)'];
 
         this.waves = []; /* 파도를 모아놓을 array */
 
         /* 파도 수 만큼 Wave클래스 실행 */
         for (let i = 0; i < this.totalWaves; i++) {
-            const wave = new Wave(i, this.totalPoints, this.color[i]); /* 몇 번째 파도인지, 기준점의 수, 색 전달 */
+            const wave = new Wave(
+                i,
+                this.totalPoints,
+                this.color[i]
+            ); /* 몇 번째 파도인지, 기준점의 수, 색 전달 */
             this.waves[i] = wave; /* waves array에 Wave클래스 선언 */
         }
     }
@@ -100,7 +113,11 @@ class Wave {
 
         /* 점 수 만큼 움직임 */
         for (let i = 0; i < this.totalPoints; i++) {
-            const point = new Point(this.index + i, this.pointGap * i, this.centerY); /* 각 점의 Point클래스 불러옴 */
+            const point = new Point(
+                this.index + i,
+                this.pointGap * i,
+                this.centerY
+            ); /* 각 점의 Point클래스 불러옴 */
             this.points[i] = point; /* points array에 Point클래스 선언 */
         }
     }
@@ -118,7 +135,9 @@ class Wave {
         /* 2번째 기준점 부터 그림 */
         for (let i = 1; i < this.totalPoints; i++) {
             if (i < this.totalPoints - 1) {
-                this.points[i].update(); /* 첫 번째 기준점이나 마지막 기준점이 아니면 Point클래스에 update 실행 */
+                this.points[
+                    i
+                ].update(); /* 첫 번째 기준점이나 마지막 기준점이 아니면 Point클래스에 update 실행 */
             }
 
             const cx = (prevX + this.points[i].x) / 2; /* cx는 이전 x값과 기준점의 중점 */
@@ -152,7 +171,11 @@ class Point {
     /* 기준점 위치 업데이트 함수 */
     update() {
         this.cur += this.speed; /* cur 증가 */
-        this.y = this.fixedY + Math.sin(this.cur) * this.max; /* cur이 증가함에 따라 사인함수의 y값이 최댓값까지 파도의 형태로 이루어지고 기준 y값에서 위 아래로 움직임 */
+        this.y =
+            this.fixedY +
+            Math.sin(this.cur) *
+                this
+                    .max; /* cur이 증가함에 따라 사인함수의 y값이 최댓값까지 파도의 형태로 이루어지고 기준 y값에서 위 아래로 움직임 */
     }
 }
 
