@@ -1,2 +1,7 @@
 # Wave
- 캔버스를 이용한 파도 애니메이션
+
+Wave Animation Using Canvas
+
+## Link
+
+https://developerdock.github.io/Wave/
